@@ -1,6 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
-var Origins = "restaraunt-react-app";
+var Origins = "restaraunt-react-ap";
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -8,7 +8,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
     options.AddPolicy(Origins, policy =>
     {
-        policy.WithOrigins("http://localhost:5178/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+        policy.WithOrigins("http://localhost:5115/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
         policy.WithOrigins("http://localhost:3000/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
     }));
 
