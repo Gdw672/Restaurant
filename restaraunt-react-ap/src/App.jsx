@@ -1,0 +1,12 @@
+import React from "react";
+import Authentication from "./Scripts/Authentication";
+
+function App() {
+    return (
+        <div>
+            <Authentication />
+        </div>
+    );
+}
+
+export default App;

@@ -1,6 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using RestaurantTP.Database.Context;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 var Origins = "restaraunt-react-ap";
+builder.Services.AddAuthentication("Bearer").AddJwtBearer();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -11,6 +16,8 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("http://localhost:5115/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
         policy.WithOrigins("http://localhost:3000/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
     }));
+
+builder.Services.AddDbContext<RestaurantTPDbContext>(options => options.UseSqlServer("Server = NANOMACHINE; Database = RestaurantTP; Trusted_Connection=True; TrustServerCertificate=true;"));
 
 var app = builder.Build();
 

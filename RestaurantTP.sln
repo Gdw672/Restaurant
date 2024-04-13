@@ -1,6 +1,29 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantTP", "RestaurantTP\RestaurantTP.csproj", "{0F80EC19-1C42-45FC-BCCB-7896D7DBFCD3}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34804.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantTP", "RestaurantTP\RestaurantTP.csproj", "{0F80EC19-1C42-45FC-BCCB-7896D7DBFCD3}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "restaraunt-react-ap", "restaraunt-react-ap\", "{157937C7-DCE4-4919-8A51-5E7ED8116322}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_49255"
+		Debug.AspNetCompiler.PhysicalPath = "restaraunt-react-ap\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49255\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_49255"
+		Release.AspNetCompiler.PhysicalPath = "restaraunt-react-ap\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49255\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "49255"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +35,15 @@ Global
 		{0F80EC19-1C42-45FC-BCCB-7896D7DBFCD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F80EC19-1C42-45FC-BCCB-7896D7DBFCD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F80EC19-1C42-45FC-BCCB-7896D7DBFCD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{157937C7-DCE4-4919-8A51-5E7ED8116322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{157937C7-DCE4-4919-8A51-5E7ED8116322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{157937C7-DCE4-4919-8A51-5E7ED8116322}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{157937C7-DCE4-4919-8A51-5E7ED8116322}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A53C548-7DA5-4F3D-A375-0C67D498BFAB}
 	EndGlobalSection
 EndGlobal
