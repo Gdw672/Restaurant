@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantTP.Service.Interface;
 
@@ -14,6 +15,7 @@ namespace RestaurantTP.Controllers
         {
             _checkLoginService = checkLoginService;
         }
+        
         [HttpGet]
         [Route("gettest")]
         public IActionResult GetData()
@@ -30,6 +32,16 @@ namespace RestaurantTP.Controllers
 
             return Ok(validate);
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route("getSecretInfo")]
+        public IActionResult GetSecretInfo()
+        {
+            return Ok("QWERTY");
+        }
+
+
         public record AutRequest(string name, string password);
     }
 }

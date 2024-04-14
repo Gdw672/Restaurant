@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using RestaurantTP.Database.Context;
+using RestaurantTP.Models.Authentication;
 using RestaurantTP.Models.DB_Context.Interface;
 using RestaurantTP.Service;
 using RestaurantTP.Service.Interface;
@@ -7,10 +11,26 @@ using RestaurantTP.Service.Interface;
 var builder = WebApplication.CreateBuilder(args);
 
 var Origins = "restaraunt-react-ap";
-builder.Services.AddAuthentication("Bearer").AddJwtBearer();
 
 builder.Services.AddTransient<ICheckLoginService, CheckLoginService>();
 builder.Services.AddTransient<IRestaurantTPDbContext, RestaurantTPDbContext>();
+builder.Services.AddTransient<IJWTService, JWTService>();
+
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = AuthOptions.ISSUER,
+            ValidateAudience = true,
+            ValidAudience = AuthOptions.AUDIENCE,
+            ValidateLifetime = true,
+            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+            ValidateIssuerSigningKey = true,
+        };
+    });
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -21,6 +41,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy(Origins, policy =>
     {
         policy.WithOrigins("http://localhost:5115/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+        policy.WithOrigins("http://localhost:3000/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+        policy.WithOrigins("http://localhost:3001/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+        policy.WithOrigins("http://localhost:3002/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
         policy.WithOrigins("http://localhost:3003/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
         policy.WithOrigins("http://localhost:3004/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
         policy.WithOrigins("http://localhost:3005/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();

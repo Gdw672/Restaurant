@@ -4,6 +4,6 @@ namespace RestaurantTP.Service.Interface
 {
     public interface ICheckLoginService
     {
-        public bool Login(AutRequest autRequest);
+        public object Login(AutRequest autRequest);
     }
 }
