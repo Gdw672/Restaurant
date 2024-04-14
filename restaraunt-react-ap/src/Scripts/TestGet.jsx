@@ -5,7 +5,7 @@ function TestGet() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('https://localhost:7072/api/authentication');
+            const response = await fetch('https://localhost:7072/api/authentication/gettest');
             const data = await response.json();
             setApiResponse(data);
         } catch (error) {

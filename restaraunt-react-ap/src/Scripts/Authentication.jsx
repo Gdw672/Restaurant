@@ -16,12 +16,12 @@ const Authentication = () => {
 }
 
     const RealSend = (jsonData) => {
-        axios.post('https://localhost:7072/Authentication/GetData', jsonData)
+        axios.post('https://localhost:7072/api/authentication/sendData', jsonData)
             .then(function (response) {
-                console.log('Данные успешно отправлены:', response);
+                console.log(response);
             })
             .catch(function (error) {
-                console.error('Ошибка при отправке данных:', error);
+                console.error('No, erroe:', error);
             });
     }
 

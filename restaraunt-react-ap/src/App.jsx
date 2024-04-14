@@ -5,7 +5,7 @@ import TestGet from "./Scripts/TestGet";
 function App() {
     return (
         <div>
-            <TestGet/>
+            <Authentication />
         </div>
     );
 }

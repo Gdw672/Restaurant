@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantTP.Models.DatabaseModel;
+using RestaurantTP.Models.DB_Context.Interface;
 
 namespace RestaurantTP.Database.Context
 {
-    public class RestaurantTPDbContext : DbContext
+    public class RestaurantTPDbContext : DbContext, IRestaurantTPDbContext
     {
         public DbSet<DbUser> users {  get; set; }
 

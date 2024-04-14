@@ -1,12 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantTP.Database.Context;
+using RestaurantTP.Models.DB_Context.Interface;
+using RestaurantTP.Service;
+using RestaurantTP.Service.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var Origins = "restaraunt-react-ap";
 builder.Services.AddAuthentication("Bearer").AddJwtBearer();
+
+builder.Services.AddTransient<ICheckLoginService, CheckLoginService>();
+builder.Services.AddTransient<IRestaurantTPDbContext, RestaurantTPDbContext>();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
