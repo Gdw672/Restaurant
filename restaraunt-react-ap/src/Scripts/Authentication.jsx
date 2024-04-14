@@ -1,15 +1,39 @@
 import * as React from "react";
+import axios from 'axios';
 
 const Authentication = () => {
+
+    const SendData = () => {
+        var nameValue = document.getElementById("nameInput").value;
+        var passwordValue = document.getElementById("passwordInput").value;
+
+        var jsonData = {
+            "name": nameValue,
+            "password": passwordValue
+        };
+
+        RealSend(jsonData);
+}
+
+    const RealSend = (jsonData) => {
+        axios.post('https://localhost:7072/Authentication/GetData', jsonData)
+            .then(function (response) {
+                console.log('Данные успешно отправлены:', response);
+            })
+            .catch(function (error) {
+                console.error('Ошибка при отправке данных:', error);
+            });
+    }
 
     return (
         <div>
             <h3>Name</h3>
-            <input type="text" />
-
+            <input type="text" id="nameInput"/>
 
             <h3>Password</h3>
-            <input type="password" />
+            <input type="password" id="passwordInput" />
+
+            <input type="button" value="Send data" onClick={SendData} />
         </div>
     )
 }

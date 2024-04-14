@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace RestaurantTP.Controllers
@@ -9,5 +7,14 @@ namespace RestaurantTP.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
+        [HttpGet]
+        public IActionResult GetData()
+        {
+            var data = new { Message = "Hello from ASP.NET Core Web API" };
+            return Ok(data);
+        }
+
+        public record AutRequest(string name, string password);
+
     }
 }
