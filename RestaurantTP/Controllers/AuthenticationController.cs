@@ -31,7 +31,7 @@ namespace RestaurantTP.Controllers
         [Route("sendData")]
         public async Task<IActionResult> TryLogin([FromBody] AutRequest autRequest)
         {
-           await _roleService.SetRoles();
+            await _roleService.SetRoles();
 
             var validate = _checkLoginService.Login(autRequest);
 

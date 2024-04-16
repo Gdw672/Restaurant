@@ -19,7 +19,7 @@ namespace RestaurantTP.Service
             {
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-                string[] roleNames = { "administrator", "cook", "waiter", "tests" };
+                string[] roleNames = { "administrator", "cook", "waiter" };
 
                 foreach (var roleName in roleNames)
                 {

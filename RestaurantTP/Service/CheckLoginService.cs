@@ -29,7 +29,7 @@ namespace RestaurantTP.Service
                 {
                     name = string.Empty,
                     token = string.Empty,
-                    acces = false
+                    role  = string.Empty
                 };
             }
 
@@ -39,7 +39,7 @@ namespace RestaurantTP.Service
             {
                 name = autRequest.name,
                 token = token,
-                acces = true
+                role = logInfo.role
             };
 
             return response;
