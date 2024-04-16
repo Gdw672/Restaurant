@@ -8,24 +8,30 @@ namespace RestaurantTP.Service
 {
     public class JWTService : IJWTService
     {
-
-        public string GenerateToken(string name)
+        public readonly IRoleService _roleService;
+        public JWTService(IRoleService roleService) 
         {
-
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, name) };
+            _roleService = roleService;
+        }
+        public string GenerateToken(string name, string role)
+        {
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimsIdentity.DefaultNameClaimType, name),
+        new Claim(ClaimsIdentity.DefaultRoleClaimType, role)
+    };
 
             var jwt = new JwtSecurityToken(
                 issuer: AuthOptions.ISSUER,
                 audience: AuthOptions.AUDIENCE,
                 claims: claims,
-                expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
+                expires: DateTime.Now.AddSeconds(20),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
-                );
-  
-            return new JwtSecurityTokenHandler().WriteToken(jwt);
+            );
 
-            
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
+
 
     }
 }

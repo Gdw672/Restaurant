@@ -1,71 +1,79 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantTP.Database.Context;
 using RestaurantTP.Models.Authentication;
+using RestaurantTP.Models.DatabaseModel;
+using RestaurantTP.Models.DB_Context;
 using RestaurantTP.Models.DB_Context.Interface;
 using RestaurantTP.Service;
 using RestaurantTP.Service.Interface;
 
-var builder = WebApplication.CreateBuilder(args);
+        var builder = WebApplication.CreateBuilder(args);
 
-var Origins = "restaraunt-react-ap";
+        var Origins = "restaraunt-react-ap";
 
-builder.Services.AddTransient<ICheckLoginService, CheckLoginService>();
-builder.Services.AddTransient<IRestaurantTPDbContext, RestaurantTPDbContext>();
-builder.Services.AddTransient<IJWTService, JWTService>();
+        builder.Services.AddTransient<ICheckLoginService, CheckLoginService>();
+        builder.Services.AddTransient<IRestaurantTPDbContext, RestaurantTPDbContext>();
+        builder.Services.AddTransient<IJWTService, JWTService>();
+        builder.Services.AddTransient<IRoleService, RoleService>();
 
-builder.Services.AddAuthorization();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidIssuer = AuthOptions.ISSUER,
-            ValidateAudience = true,
-            ValidAudience = AuthOptions.AUDIENCE,
-            ValidateLifetime = true,
-            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-            ValidateIssuerSigningKey = true,
-        };
-    });
+        builder.Services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<RestarauntTPDBIdentityDBContext>();
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddHttpContextAccessor();
+        builder.Services.AddAuthorization();
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = AuthOptions.ISSUER,
+                    ValidateAudience = true,
+                    ValidAudience = AuthOptions.AUDIENCE,
+                    ValidateLifetime = true,
+                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                    ValidateIssuerSigningKey = true,
+                };
+            });
 
-builder.Services.AddSwaggerGen();
-builder.Services.AddCors(options =>
-    options.AddPolicy(Origins, policy =>
-    {
-        policy.WithOrigins("http://localhost:5115/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
-        policy.WithOrigins("http://localhost:3000/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
-        policy.WithOrigins("http://localhost:3001/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
-        policy.WithOrigins("http://localhost:3002/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
-        policy.WithOrigins("http://localhost:3003/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
-        policy.WithOrigins("http://localhost:3004/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
-        policy.WithOrigins("http://localhost:3005/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
-        policy.WithOrigins("http://localhost:3006/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
-        policy.WithOrigins("http://localhost:3007/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddHttpContextAccessor();
 
-    }));
+        builder.Services.AddSwaggerGen();
+        builder.Services.AddCors(options =>
+            options.AddPolicy(Origins, policy =>
+            {
+                policy.WithOrigins("http://localhost:5115/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.WithOrigins("http://localhost:3000/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.WithOrigins("http://localhost:3001/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.WithOrigins("http://localhost:3002/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.WithOrigins("http://localhost:3003/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.WithOrigins("http://localhost:3004/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.WithOrigins("http://localhost:3005/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.WithOrigins("http://localhost:3006/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.WithOrigins("http://localhost:3007/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
 
-builder.Services.AddDbContext<RestaurantTPDbContext>(options => options.UseSqlServer("Server = NANOMACHINE; Database = RestaurantTP; Trusted_Connection=True; TrustServerCertificate=true;"));
+            }));
+
+        builder.Services.AddDbContext<RestaurantTPDbContext>(options => options.UseSqlServer("Server = NANOMACHINE; Database = RestaurantTP; Trusted_Connection=True; TrustServerCertificate=true;"));
+        builder.Services.AddDbContext<RestarauntTPDBIdentityDBContext>(options => options.UseSqlServer("Server = NANOMACHINE; Database = RestaurantTP; Trusted_Connection=True; TrustServerCertificate=true;"));
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
 
-app.UseHttpsRedirection();
+        app.UseHttpsRedirection();
 
-app.UseAuthorization();
-app.UseCors(Origins);
+        app.UseAuthorization();
+        app.UseCors(Origins);
 app.MapControllers();
 
 app.Run();

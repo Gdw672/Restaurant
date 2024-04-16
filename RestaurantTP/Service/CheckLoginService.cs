@@ -25,15 +25,21 @@ namespace RestaurantTP.Service
 
             if (logInfo == null)
             {
-                return new string("No acces");
+                return new
+                {
+                    name = string.Empty,
+                    token = string.Empty,
+                    acces = false
+                };
             }
 
-            var token = _jwtService.GenerateToken(autRequest.name);
+            var token =  _jwtService.GenerateToken(autRequest.name, logInfo.role);
 
             var response = new
             {
                 name = autRequest.name,
                 token = token,
+                acces = true
             };
 
             return response;

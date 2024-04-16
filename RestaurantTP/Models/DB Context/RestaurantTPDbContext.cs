@@ -6,7 +6,7 @@ namespace RestaurantTP.Database.Context
 {
     public class RestaurantTPDbContext : DbContext, IRestaurantTPDbContext
     {
-        public DbSet<DbUser> users {  get; set; }
+        public DbSet<DbUser> users { get; set; }
 
         public RestaurantTPDbContext(DbContextOptions<RestaurantTPDbContext> options) : base(options)
         {

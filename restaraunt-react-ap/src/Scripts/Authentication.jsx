@@ -6,7 +6,7 @@ const Authentication = () => {
 
     const [token, setToken] = React.useState('');
 
-    const SendData = () => {
+    const SendData = async () => {
         var nameValue = document.getElementById("nameInput").value;
         var passwordValue = document.getElementById("passwordInput").value;
 
@@ -15,23 +15,22 @@ const Authentication = () => {
             "password": passwordValue
         };
 
-        RealSend(jsonData);
+       await RealSend(jsonData);
 }
 
-    const RealSend = (jsonData) => {
-        axios.post('https://localhost:7072/api/authentication/sendData', jsonData)
-            .then(function (response) {
-
-                var token = response.data.token;
-
-                    Cookies.set('token', token)
-
-                    console.log(Cookies.get('token'));
-            })
-            .catch(function (error) {
-                console.error('No, erroe:', error);
-            });
-    }
+        const RealSend = async (jsonData) => {
+            try {
+                const response = await axios.post('https://localhost:7072/api/authentication/sendData', jsonData);
+                Cookies.set('token', '');
+                if (response.data.acces === true) {
+                    console.log("acces");
+                    var token = response.data.token;
+                    Cookies.set('token', token);
+                }
+            } catch (error) {
+                console.error('No, error:', error.response.data);
+            }
+        }
 
     const GetSecretInfo = () => {
         const token = Cookies.get('token');
@@ -40,7 +39,7 @@ const Authentication = () => {
             return;
         }
 
-        axios.get('https://localhost:7072/api/authentication/getSecretInfo', {
+        axios.get('https://localhost:7072/api/testRole/getSecretInfo', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

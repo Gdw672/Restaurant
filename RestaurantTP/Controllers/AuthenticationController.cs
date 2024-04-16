@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantTP.Models.Static;
 using RestaurantTP.Service.Interface;
 
 namespace RestaurantTP.Controllers
@@ -10,10 +11,12 @@ namespace RestaurantTP.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly ICheckLoginService _checkLoginService;
+        private readonly IRoleService _roleService;
 
-        public AuthenticationController(ICheckLoginService checkLoginService)
+        public AuthenticationController(ICheckLoginService checkLoginService, IRoleService roleService)
         {
             _checkLoginService = checkLoginService;
+            _roleService = roleService;
         }
         
         [HttpGet]
@@ -26,8 +29,10 @@ namespace RestaurantTP.Controllers
 
         [HttpPost]
         [Route("sendData")]
-        public IActionResult TryLogin([FromBody] AutRequest autRequest)
+        public async Task<IActionResult> TryLogin([FromBody] AutRequest autRequest)
         {
+           await _roleService.SetRoles();
+
             var validate = _checkLoginService.Login(autRequest);
 
             return Ok(validate);
@@ -40,7 +45,6 @@ namespace RestaurantTP.Controllers
         {
             return Ok("QWERTY");
         }
-
 
         public record AutRequest(string name, string password);
     }
