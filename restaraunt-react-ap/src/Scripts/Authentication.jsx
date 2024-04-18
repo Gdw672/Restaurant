@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import Admin from "../RolePage/Admin";
 import Cook from "../RolePage/Cook";
 import Waiter from "../RolePage/Waiter";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Routes, Navigate, useNavigate } from 'react-router-dom';
 
 const Authentication = () => {
     const [role, setRole] = React.useState(null);
@@ -29,26 +29,34 @@ const Authentication = () => {
                 const token = response.data.token;
                 Cookies.set('token', token);
                 setRole(response.data.role);
+
             }
         } catch (error) {
             console.error('No, error:', error.response.data);
         }
     }
 
-    let componentToRender;
-    switch (role) {
-        case "administrator":
-            componentToRender = <Admin />;
-            break;
-        case "cook":
-            componentToRender = <Cook />;
-            break;
-        case "waiter":
-            componentToRender = <Waiter />;
-            break;
-        default:
-            componentToRender = <div>No role assigned</div>;
+    const DirectTo = ({ role }) => {
+        const navigate = useNavigate();
+        let linkToRender;
+
+        switch (role) {
+            case "administrator":
+                navigate("/Admin");
+                break;
+            case "cook":
+                navigate("/Cook");
+                break;
+            case "waiter":
+                navigate("/Waiter");
+                break;
+            default:
+                break;
+        }
+
+        return linkToRender;
     }
+
 
     const GetSecretInfo = () => {
         const token = Cookies.get('token');
@@ -83,7 +91,7 @@ const Authentication = () => {
 
             <input type="button" value="Log or not?" onClick={GetSecretInfo} />
 
-            {componentToRender}
+            {DirectTo({ role })}
         </div>
     )
 }
