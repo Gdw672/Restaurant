@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantTP.Service.Interface;
 
-namespace RestaurantTP.Service
+namespace RestaurantTP.Service.Authentication
 {
     public class RoleService : IRoleService
     {

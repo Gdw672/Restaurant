@@ -1,9 +1,6 @@
 import * as React from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import Admin from "../RolePage/Admin";
-import Cook from "../RolePage/Cook";
-import Waiter from "../RolePage/Waiter";
 import { BrowserRouter as Router, Route, Link, Routes, Navigate, useNavigate } from 'react-router-dom';
 
 const Authentication = () => {
