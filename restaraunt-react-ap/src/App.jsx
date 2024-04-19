@@ -1,12 +1,20 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Authentication from "./Scripts/Authentication";
-import TestGet from "./Scripts/TestGet";
+import Admin from "./RolePage/Admin";
+import Cook from "./RolePage/Cook";
+import Waiter from "./RolePage/Waiter";
 
 function App() {
     return (
-        <div>
-            <Authentication />
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Authentication />} />
+                <Route path="/Admin" element={<Admin />} />
+                <Route path="/Cook" element={<Cook />} />
+                <Route path="/Waiter" element={<Waiter />} />
+            </Routes>
+        </Router>
     );
 }
 

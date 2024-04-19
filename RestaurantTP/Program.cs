@@ -2,17 +2,17 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantTP.Database.Context;
 using RestaurantTP.Models.Authentication;
-using RestaurantTP.Models.DatabaseModel;
 using RestaurantTP.Models.DB_Context;
 using RestaurantTP.Models.DB_Context.Interface;
 using RestaurantTP.Service;
+using RestaurantTP.Service.Authentication;
 using RestaurantTP.Service.Interface;
+using RestaurantTP.Service.Product;
 
-        var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
         var Origins = "restaraunt-react-ap";
 
@@ -20,6 +20,7 @@ using RestaurantTP.Service.Interface;
         builder.Services.AddTransient<IRestaurantTPDbContext, RestaurantTPDbContext>();
         builder.Services.AddTransient<IJWTService, JWTService>();
         builder.Services.AddTransient<IRoleService, RoleService>();
+        builder.Services.AddTransient<IProductService, ProductService>();
 
         builder.Services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<RestarauntTPDBIdentityDBContext>();
 

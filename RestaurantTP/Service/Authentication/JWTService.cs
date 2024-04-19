@@ -4,12 +4,12 @@ using RestaurantTP.Service.Interface;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace RestaurantTP.Service
+namespace RestaurantTP.Service.Authentication
 {
     public class JWTService : IJWTService
     {
         public readonly IRoleService _roleService;
-        public JWTService(IRoleService roleService) 
+        public JWTService(IRoleService roleService)
         {
             _roleService = roleService;
         }
