@@ -9,9 +9,9 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Cook />} />
+                <Route path="/" element={<Admin />} />
                 <Route path="/Admin" element={<Admin />} />
-                <Route path="/Cook" element={<Authentication />} />
+                <Route path="/Cook" element={<Cook />} />
                 <Route path="/Waiter" element={<Waiter />} />
             </Routes>
         </Router>

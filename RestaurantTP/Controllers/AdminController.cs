@@ -6,26 +6,28 @@ namespace RestaurantTP.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class AdminController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly IMenuService _menuService;
 
-        public ProductController(IProductService productService) 
-        { 
+        public AdminController(IProductService productService, IMenuService menuService)
+        {
             _productService = productService;
+            _menuService = menuService;
         }
 
         [HttpGet]
         [Route("getProductsToBuy")]
         public IActionResult GetProductsToBuy()
         {
-            var productList =_productService.GetProductsToBuy();
+            var productList = _productService.GetProductsToBuy();
             return Ok(productList);
         }
 
         [HttpPost]
         [Route("makeOrder")]
-        public IActionResult GetProductsToSell([FromBody] JsonElement orderedProducts) 
+        public IActionResult GetProductsToSell([FromBody] JsonElement orderedProducts)
         {
             var allElements = new Dictionary<string, int>();
 
@@ -42,11 +44,12 @@ namespace RestaurantTP.Controllers
             return Ok(allElements);
         }
 
-        public record OrderedProducts(List<Product> orderedProducts);
-
-        public record Product(string key, int value);
-
-
-
+        [HttpGet]
+        [Route("getDishList")]
+        public IActionResult GetMenuList()
+        {
+           var dishList = _menuService.GetAllDishes();
+            return Ok(dishList);
+        }
     }
 }
