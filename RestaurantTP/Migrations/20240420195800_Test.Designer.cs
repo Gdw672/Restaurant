@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantTP.Database.Context;
 
@@ -10,9 +11,11 @@ using RestaurantTP.Database.Context;
 namespace RestaurantTP.Migrations
 {
     [DbContext(typeof(RestaurantTPDbContext))]
-    partial class RestaurantTPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240420195800_Test")]
+    partial class Test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,7 +86,7 @@ namespace RestaurantTP.Migrations
                     b.ToTable("dishes");
                 });
 
-            modelBuilder.Entity("RestaurantTP.Models.Restaurant.Dish.DBDishIngridient", b =>
+            modelBuilder.Entity("RestaurantTP.Models.Restaurant.Dish.DishIngredient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -105,7 +108,7 @@ namespace RestaurantTP.Migrations
 
                     b.HasIndex("DishId");
 
-                    b.ToTable("ingridients");
+                    b.ToTable("DishIngredient");
                 });
 
             modelBuilder.Entity("RestaurantTP.Models.Restaurant.Product.DBProductToBuy", b =>
@@ -128,15 +131,20 @@ namespace RestaurantTP.Migrations
                     b.ToTable("productsToBuy");
                 });
 
-            modelBuilder.Entity("RestaurantTP.Models.Restaurant.Dish.DBDishIngridient", b =>
+            modelBuilder.Entity("RestaurantTP.Models.Restaurant.Dish.DishIngredient", b =>
                 {
                     b.HasOne("RestaurantTP.Models.Restaurant.Dish.DBDish", "Dish")
-                        .WithMany()
+                        .WithMany("Ingredients")
                         .HasForeignKey("DishId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Dish");
+                });
+
+            modelBuilder.Entity("RestaurantTP.Models.Restaurant.Dish.DBDish", b =>
+                {
+                    b.Navigation("Ingredients");
                 });
 #pragma warning restore 612, 618
         }

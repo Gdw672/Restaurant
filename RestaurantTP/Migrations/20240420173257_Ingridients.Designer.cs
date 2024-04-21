@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantTP.Database.Context;
 
@@ -10,9 +11,11 @@ using RestaurantTP.Database.Context;
 namespace RestaurantTP.Migrations
 {
     [DbContext(typeof(RestaurantTPDbContext))]
-    partial class RestaurantTPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240420173257_Ingridients")]
+    partial class Ingridients
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,38 +77,9 @@ namespace RestaurantTP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("ID");
 
                     b.ToTable("dishes");
-                });
-
-            modelBuilder.Entity("RestaurantTP.Models.Restaurant.Dish.DBDishIngridient", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<int>("DishId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("IngredientName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DishId");
-
-                    b.ToTable("ingridients");
                 });
 
             modelBuilder.Entity("RestaurantTP.Models.Restaurant.Product.DBProductToBuy", b =>
@@ -126,17 +100,6 @@ namespace RestaurantTP.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("productsToBuy");
-                });
-
-            modelBuilder.Entity("RestaurantTP.Models.Restaurant.Dish.DBDishIngridient", b =>
-                {
-                    b.HasOne("RestaurantTP.Models.Restaurant.Dish.DBDish", "Dish")
-                        .WithMany()
-                        .HasForeignKey("DishId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Dish");
                 });
 #pragma warning restore 612, 618
         }
