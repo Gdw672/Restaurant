@@ -1,4 +1,6 @@
-﻿namespace RestaurantTP.Models.Restaurant.Product
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RestaurantTP.Models.Restaurant.Product
 {
     public class ProductBase
     {

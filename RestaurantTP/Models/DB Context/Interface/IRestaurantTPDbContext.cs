@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantTP.Models.DatabaseModel;
+using RestaurantTP.Models.Restaurant.Dish;
 using RestaurantTP.Models.Restaurant.Product;
 
 namespace RestaurantTP.Models.DB_Context.Interface
@@ -11,5 +12,7 @@ namespace RestaurantTP.Models.DB_Context.Interface
         public DbSet<DbUser> users { get; set; }
         public DbSet<DBAvailableProduct> availableProducts { get; set; }
         public DbSet<DBProductToBuy> productsToBuy { get; set; }
+        public DbSet<DBDish> dishes { get; set; }
+        public DbSet<DBDishIngridient> ingridients { get; set; }
     }
 }

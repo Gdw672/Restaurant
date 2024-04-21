@@ -9,6 +9,7 @@ using RestaurantTP.Models.DB_Context;
 using RestaurantTP.Models.DB_Context.Interface;
 using RestaurantTP.Service;
 using RestaurantTP.Service.Authentication;
+using RestaurantTP.Service.Dish;
 using RestaurantTP.Service.Interface;
 using RestaurantTP.Service.Product;
 
@@ -21,6 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddTransient<IJWTService, JWTService>();
         builder.Services.AddTransient<IRoleService, RoleService>();
         builder.Services.AddTransient<IProductService, ProductService>();
+        builder.Services.AddTransient<IDishService, DishService>();
 
         builder.Services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<RestarauntTPDBIdentityDBContext>();
 

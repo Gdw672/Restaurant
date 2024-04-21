@@ -2,6 +2,6 @@
 {
     public class DBProductToBuy : ProductBase
     {
-        public float Price { get; set; }
+        public double Price { get; set; }
     }
 }
