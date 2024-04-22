@@ -51,5 +51,25 @@ namespace RestaurantTP.Controllers
            var dishList = _menuService.GetAllDishes();
             return Ok(dishList);
         }
+
+        [HttpPost]
+        [Route("setDailyMenu")]
+        public IActionResult SetDailyMenu(JsonElement jsonElement) 
+        {
+            var dailyDishes = new List<string>();
+
+            var array = jsonElement.EnumerateArray();
+
+            foreach (JsonElement item in array)
+            {
+                var name = item.GetString();
+
+                dailyDishes.Add(name);
+            }
+
+            _menuService.SetDailyMenu(dailyDishes);
+
+            return Ok();
+        }
     }
 }

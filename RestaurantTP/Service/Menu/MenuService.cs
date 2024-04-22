@@ -15,5 +15,19 @@ namespace RestaurantTP.Service.Menu
         {
             return _restaurantTPDbContext.dishes.ToList();
         }
+
+        public void SetDailyMenu(List<string> dishList)
+        {
+            _restaurantTPDbContext.ClearAll(_restaurantTPDbContext.dailyMenuDishes);
+
+            foreach (var d in dishList)
+            {
+                var dish = new DBDailyMenuDish(d);
+
+                _restaurantTPDbContext.dailyMenuDishes.Add(dish);
+            }
+
+            _restaurantTPDbContext.SaveChanges();
+        }
     }
 }

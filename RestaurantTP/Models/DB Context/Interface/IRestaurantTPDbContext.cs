@@ -13,6 +13,7 @@ namespace RestaurantTP.Models.DB_Context.Interface
         public DbSet<DBAvailableProduct> availableProducts { get; set; }
         public DbSet<DBProductToBuy> productsToBuy { get; set; }
         public DbSet<DBDish> dishes { get; set; }
+        public DbSet<DBDailyMenuDish> dailyMenuDishes { get; set; }
         public DbSet<DBDishIngridient> ingridients { get; set; }
     }
 }

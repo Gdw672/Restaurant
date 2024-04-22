@@ -13,6 +13,7 @@ namespace RestaurantTP.Database.Context
         public DbSet<DBAvailableProduct> availableProducts { get; set; }
         public DbSet<DBProductToBuy> productsToBuy { get; set; }
         public DbSet<DBDish > dishes { get; set; }
+        public DbSet<DBDailyMenuDish>  dailyMenuDishes { get; set; }
         public DbSet<DBDishIngridient> ingridients { get; set; }
 
         public RestaurantTPDbContext(DbContextOptions<RestaurantTPDbContext> options) : base(options)

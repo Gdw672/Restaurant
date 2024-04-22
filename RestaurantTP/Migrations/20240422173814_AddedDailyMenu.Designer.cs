@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantTP.Database.Context;
 
@@ -10,9 +11,11 @@ using RestaurantTP.Database.Context;
 namespace RestaurantTP.Migrations
 {
     [DbContext(typeof(RestaurantTPDbContext))]
-    partial class RestaurantTPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240422173814_AddedDailyMenu")]
+    partial class AddedDailyMenu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,23 +69,6 @@ namespace RestaurantTP.Migrations
                     b.ToTable("users");
                 });
 
-            modelBuilder.Entity("RestaurantTP.Models.Restaurant.Dish.DBDailyMenuDish", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("dailyMenuDishes");
-                });
-
             modelBuilder.Entity("RestaurantTP.Models.Restaurant.Dish.DBDish", b =>
                 {
                     b.Property<int>("ID")
@@ -97,7 +83,7 @@ namespace RestaurantTP.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("dishes");
+                    b.ToTable("DBDish");
                 });
 
             modelBuilder.Entity("RestaurantTP.Models.Restaurant.Dish.DBDishIngridient", b =>
