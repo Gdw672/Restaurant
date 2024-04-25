@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantTP.Models.DatabaseModel;
 using RestaurantTP.Models.DB_Context.Interface;
-using RestaurantTP.Models.Restaurant;
+using RestaurantTP.Models.Order;
 using RestaurantTP.Models.Restaurant.Dish;
 using RestaurantTP.Models.Restaurant.Product;
 
@@ -14,7 +14,9 @@ namespace RestaurantTP.Database.Context
         public DbSet<DBProductToBuy> productsToBuy { get; set; }
         public DbSet<DBDish > dishes { get; set; }
         public DbSet<DBDailyMenuDish>  dailyMenuDishes { get; set; }
-        public DbSet<DBDishIngridient> ingridients { get; set; }
+        public DbSet<DBDishIngridient> ingredients { get; set; }
+        public DbSet<DBOrder> orders { get; set; }
+        public DbSet<DBOrderComponent> orderComponents { get; set; }
 
         public RestaurantTPDbContext(DbContextOptions<RestaurantTPDbContext> options) : base(options)
         {

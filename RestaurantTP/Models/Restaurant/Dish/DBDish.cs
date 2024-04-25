@@ -11,13 +11,17 @@ namespace RestaurantTP.Models.Restaurant.Dish
 
         }
 
-        public DBDish(string name)
+        public DBDish(string name, double price, double profit)
         {
             Name = name;
+            Price = price;
+            Profit = profit;
         }
 
         [Key]
         public int ID { get; set; }
         public string Name { get; set; }
+        public double Price { get; set; }
+        public double Profit { get; set; }
     }
 }

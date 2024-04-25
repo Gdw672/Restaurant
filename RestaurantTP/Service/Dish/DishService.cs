@@ -16,16 +16,36 @@ namespace RestaurantTP.Service.Dish
 
         public bool CreateDish(string name, Dictionary<string, double> ingridients)
         {
-            AddDish(name);
+            var priceAndProfit = CountPriceAndProfit(ingridients);
+
+            AddDish(name, priceAndProfit.Item1, priceAndProfit.Item2);
 
             AddIngridients(name, ingridients);
             
             return true;
         }
 
-        private void AddDish(string name)
+
+        private Tuple<double, double> CountPriceAndProfit(Dictionary<string, double> ingridients)
         {
-            var newDish = new DBDish(name);
+            var price = 0d;
+            var profit = 0d;
+
+            foreach (var item in ingridients)
+            {
+                var ingrPrice = _restaurantTPDbContext.productsToBuy.FirstOrDefault(ingredient => ingredient.Name == item.Key)?.Price ?? 0;
+                var totalIngrPrice = ingrPrice * item.Value * 3;
+
+                price += totalIngrPrice;
+                profit += totalIngrPrice - ingrPrice * item.Value;
+            }
+
+            return new Tuple<double, double>(item1: price, item2: profit);
+        }
+
+        private void AddDish(string name, double price, double profit)
+        {
+            var newDish = new DBDish(name, price, profit);
 
             _restaurantTPDbContext.dishes.Add(newDish);
 
@@ -41,7 +61,7 @@ namespace RestaurantTP.Service.Dish
                 if(_restaurantTPDbContext.productsToBuy.FirstOrDefault(ingridient => ingridient.Name == keyObject.Key) is not null)
                 {
                     var ingridient = new DBDishIngridient(keyObject.Key, keyObject.Value, existingDishID);
-                    _restaurantTPDbContext.ingridients.Add(ingridient);
+                    _restaurantTPDbContext.ingredients.Add(ingridient);
                 }
                 else
                 {
