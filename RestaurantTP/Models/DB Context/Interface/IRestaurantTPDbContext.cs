@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantTP.Models.DatabaseModel;
+using RestaurantTP.Models.Financial;
 using RestaurantTP.Models.Order;
 using RestaurantTP.Models.Restaurant.Dish;
 using RestaurantTP.Models.Restaurant.Product;
@@ -18,5 +19,6 @@ namespace RestaurantTP.Models.DB_Context.Interface
         public DbSet<DBDishIngridient> ingredients { get; set; }
         public DbSet<DBOrder> orders { get; set; }
         public DbSet<DBOrderComponent> orderComponents { get; set; }
+        public DbSet<DBDayProfit> dayProfits { get; set; }
     }
 }

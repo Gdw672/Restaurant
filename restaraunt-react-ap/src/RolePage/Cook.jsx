@@ -24,8 +24,14 @@ function Cook() {
             .then(response => {
                 console.log(response.data);
             })
-
     };
+
+    const MakeAllOrders = () => {
+        axios.post('https://localhost:7072/api/cook/makeAllOrders', dictionaryDish)
+            .then(response => {
+                console.log("Yep");
+            })
+    }
 
     return (
         <div>
@@ -57,6 +63,8 @@ function Cook() {
             <button type="button" onClick={handleAddIngredient}>Add Ingredient</button>
             <br />
             <button type="button" onClick={AddNewDish}>Add new dish</button>
+
+            <button type="button" onClick={MakeAllOrders}>Ser orders as done</button>
         </div>
     );
 }

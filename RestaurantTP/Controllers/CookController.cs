@@ -10,9 +10,11 @@ namespace RestaurantTP.Controllers
     public class CookController : ControllerBase
     {
         private IDishService _dishService;
-        public CookController(IDishService dishService) 
+        private IOrderService _orderService;
+        public CookController(IDishService dishService, IOrderService orderService) 
         {
-         _dishService = dishService;
+            _dishService = dishService;
+            _orderService = orderService;
         }
         [HttpPost]
         [Route("addDish")]
@@ -33,6 +35,14 @@ namespace RestaurantTP.Controllers
             var validate = _dishService.CreateDish(name, ingridients);
 
             return Ok(validate);
+        }
+
+        [HttpPost]
+        [Route("makeAllOrders")]
+        public IActionResult MakeAllOrders()
+        {
+            _orderService.MakeOrders();
+            return Ok();
         }
 
         public class Dish

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantTP.Database.Context;
 
@@ -11,9 +12,11 @@ using RestaurantTP.Database.Context;
 namespace RestaurantTP.Migrations
 {
     [DbContext(typeof(RestaurantTPDbContext))]
-    partial class RestaurantTPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240427212152_AddDayProfit")]
+    partial class AddDayProfit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,9 +80,6 @@ namespace RestaurantTP.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
-
-                    b.Property<double>("DayProfit")
-                        .HasColumnType("float");
 
                     b.HasKey("ID");
 

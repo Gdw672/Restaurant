@@ -4,12 +4,12 @@ using RestaurantTP.Models.Restaurant.Product;
     public class DBAvailableProduct : ProductBase
     {
 
-    public DBAvailableProduct(string name, float quantity)
+    public DBAvailableProduct(string name, double quantity)
     {
         this.Name = name;
         this.quantity = quantity;
     }
 
-    public float quantity { get; set; }
+    public double quantity { get; set; }
     
     }
